@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Verificador de PIN</title>
+<style>
+  :root{
+    --bg:#000000;
+    --card:#0b0b0b;
+    --accent:#10b981;
+    --danger:#ef4444;
+    --muted:#8a8a8a;
+  }
+  html,body{
+    height:100%;
+    margin:0;
+    background:#000000;
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;
+  }
+  .wrap{
+    min-height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+    box-sizing:border-box;
+  }
+  .card{
+    width:100%;
+    max-width:420px;
+    background:#0b0b0b;
+    padding:26px;
+    border-radius:14px;
+    text-align:center;
+    color:#e6eef8;
+    border:1px solid #111;
+  }
+  h1{
+    margin:0 0 10px;
+    font-size:20px;
+    letter-spacing:0.2px;
+  }
+  p.sub{
+    margin:0 0 18px;
+    color:var(--muted);
+    font-size:14px;
+  }
+  .pin-row{
+    display:flex;
+    gap:12px;
+    justify-content:center;
+    margin-bottom:18px;
+  }
+  input.pin{
+    width:64%;
+    max-width:220px;
+    padding:14px 16px;
+    border-radius:10px;
+    border:1px solid #222;
+    background:#050505;
+    color:inherit;
+    font-size:20px;
+    text-align:center;
+    outline:none;
+    box-sizing:border-box;
+  }
+  input.pin:focus{
+    box-shadow:0 0 0 4px rgba(16,185,129,0.12);
+    border-color:rgba(16,185,129,0.3);
+  }
+  button{
+    padding:12px 14px;
+    border-radius:10px;
+    border:0;
+    background:#111;
+    color:#e6eef8;
+    font-weight:600;
+    cursor:pointer;
+  }
+  button:hover{
+    background:#151515;
+  }
+  .result{
+    height:120px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:72px;
+    margin-top:6px;
+    transition:all .22s ease;
+  }
+  .ok{color:var(--accent);transform:scale(1);opacity:1}
+  .bad{color:var(--danger);transform:scale(1);opacity:1}
+  .hidden{opacity:0;transform:scale(.9);pointer-events:none}
+  footer{
+    font-size:12px;
+    color:var(--muted);
+    margin-top:14px;
+  }
+  @media (max-width:420px){
+    input.pin{width:58%}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card" role="region" aria-label="Verificador de PIN">
+      <h1>Introduce el PIN</h1>
+      <p class="sub">Escribe el código de 4 dígitos.</p>
+
+      <div class="pin-row">
+        <input class="pin" type="password" maxlength="4" placeholder="****" />
+      </div>
+
+      <button onclick="verificarPIN()">Verificar</button>
+
+      <div class="result hidden"></div>
+
+      <footer>Verificación segura</footer>
+    </div>
+  </div>
+
+<script>
+  const correctPin = "1357";
+
+  function verificarPIN() {
+    const input = document.querySelector(".pin").value;
+    const result = document.querySelector(".result");
+
+    result.classList.add("hidden");
+
+    setTimeout(() => {
+      if (input === correctPin) {
+        result.textContent = "✅";
+        result.className = "result ok";
+      } else {
+        result.textContent = "❌";
+        result.className = "result bad";
+      }
+    }, 100);
+  }
+</script>
+
+</body>
+</html>
